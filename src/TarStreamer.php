@@ -65,14 +65,13 @@ class TarStreamer {
 			'Accept-Ranges' => 'bytes',
 			'Connection' => 'Keep-Alive',
 			'Content-Type' => $contentType,
-			'Content-Disposition' => 'attachment; filename="' . $archiveName . '";',
+			'Content-Disposition' => 'attachment; filename="' . $encodedArchiveName . '";',
 			'Cache-Control' => 'public, must-revalidate',
 			'Content-Transfer-Encoding' => 'binary',
 		];
 
 		foreach ($headers as $key => $value){
-			$encodedValue = rawurlencode($value);
-			header("$key: $encodedValue");
+			header("$key: $value");
 		}
 	}
 
