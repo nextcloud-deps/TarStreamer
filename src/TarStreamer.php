@@ -40,10 +40,11 @@ class TarStreamer {
 	 * @param string $contentType Content mime type to be set (optional, default 'application/x-tar')
 	 */
 	public function sendHeaders($archiveName = 'archive.tar', $contentType = 'application/x-tar'){
+		$encodedArchiveName = rawurlencode($archiveName);
 		if (headers_sent($headerFile, $headerLine)){
 			die(
 					"<p><strong>Error:</strong> Unable to send file " .
-					"$archiveName. HTML Headers have already been sent from " .
+					"$encodedArchiveName. HTML Headers have already been sent from " .
 					"<strong>$headerFile</strong> in line <strong>$headerLine" .
 					"</strong></p>"
 			);
@@ -52,7 +53,7 @@ class TarStreamer {
 		if (!empty($buffer)){
 			die(
 					"\n<p><strong>Error:</strong> Unable to send file " .
-					"<strong>$archiveName.epub</strong>. Output buffer " .
+					"<strong>$encodedArchiveName</strong>. Output buffer " .
 					"already contains text (typically warnings or errors).</p>"
 			);
 		}
@@ -69,8 +70,9 @@ class TarStreamer {
 			'Content-Transfer-Encoding' => 'binary',
 		];
 
-		foreach ($headers as $key => $val){
-			header("$key: $val");
+		foreach ($headers as $key => $value){
+			$encodedValue = rawurlencode($value);
+			header("$key: $encodedValue");
 		}
 	}
 
