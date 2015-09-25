@@ -11,7 +11,7 @@ class TarStreamer {
 	/**
 	 * Process in 1 MB chunks
 	 */
-	protected $blockSize = 1 * 1024 * 1024;
+	protected $blockSize = 1048576;
 	protected $outStream;
 	protected $needHeaders = false;
 
