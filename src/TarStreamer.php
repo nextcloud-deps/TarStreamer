@@ -22,9 +22,9 @@ class TarStreamer {
 	 */
 	public function __construct($options = []){
 		if (isset($options['outstream'])){
-			$this->outstream = $options['outstream'];
+			$this->outStream = $options['outstream'];
 		} else {
-			$this->outstream = fopen('php://output', 'w');
+			$this->outStream = fopen('php://output', 'w');
 			// turn off output buffering
 			while (ob_get_level() > 0){
 				ob_end_flush();
@@ -78,9 +78,10 @@ class TarStreamer {
 	/**
 	 * Add a file to the archive at the specified location and file name.
 	 *
-	 * @param string $stream      Stream to read data from
-	 * @param string $filePath    Filepath and name to be used in the archive.
-	 * @param array $options      Optional, additional options
+	 * @param resource $stream Stream to read data from
+	 * @param string $filePath Filepath and name to be used in the archive.
+	 * @param int $size
+	 * @param array $options Optional, additional options
 	 *                   Valid options are:
 	 *                      * int timestamp: timestamp for the file (default: current time)
 	 * @return bool $success
@@ -133,7 +134,7 @@ class TarStreamer {
 		$this->send(pack('a1024', ''));
 
 		// flush the data to the output
-		fflush($this->outstream);
+		fflush($this->outStream);
 		return true;
 	}
 
@@ -205,19 +206,19 @@ class TarStreamer {
 	/**
 	 * Stream the next part of the current file stream.
 	 *
-	 * @param $data raw data to send
+	 * @param string $data raw data to send
 	 */
 	protected function streamFilePart($data){
 		// send data
 		$this->send($data);
 
 		// flush the data to the output
-		fflush($this->outstream);
+		fflush($this->outStream);
 	}
 
 	/**
 	 * Complete the current file stream
-	 *
+	 * @param $size
 	 */
 	protected function completeFileStream($size){
 		// ensure we pad the last block so that it is 512 bytes
@@ -226,7 +227,7 @@ class TarStreamer {
 		}
 
 		// flush the data to the output
-		fflush($this->outstream);
+		fflush($this->outStream);
 	}
 
 	/**
@@ -240,13 +241,13 @@ class TarStreamer {
 		}
 		$this->needHeaders = false;
 
-		fwrite($this->outstream, $data);
+		fwrite($this->outStream, $data);
 	}
 
 	/**
 	 * Create a format string and argument list for pack(), then call pack() and return the result.
 	 *
-	 * @param array key being the format string and value being the data to pack
+	 * @param array $fields key being the format string and value being the data to pack
 	 * @return string binary packed data returned from pack()
 	 */
 	protected function packFields($fields){
