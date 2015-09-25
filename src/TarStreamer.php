@@ -1,6 +1,6 @@
 <?php
 
-namespace DeepDiver1975\TarStreamer;
+namespace ownCloud\TarStreamer;
 
 class TarStreamer {
 
