@@ -38,6 +38,7 @@ class TarStreamer {
 	 *
 	 * @param string $archiveName Filename of archive to be created (optional, default 'archive.tar')
 	 * @param string $contentType Content mime type to be set (optional, default 'application/x-tar')
+	 * @throws \Exception
 	 */
 	public function sendHeaders($archiveName = 'archive.tar', $contentType = 'application/x-tar'){
 		$encodedArchiveName = rawurlencode($archiveName);
