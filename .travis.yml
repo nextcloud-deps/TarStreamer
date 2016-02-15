@@ -10,6 +10,9 @@ branches:
   only:
     - master
 
+before_install:
+    - if [[ $TRAVIS_PHP_VERSION = '7.0' ]]; then pecl install xdebug; fi;
+
 install:
   - composer install --dev --no-interaction
 
