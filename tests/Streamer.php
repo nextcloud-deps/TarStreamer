@@ -21,6 +21,11 @@ class Streamer extends PHPUnit_Framework_TestCase
 			['outstream' => fopen($this->archive, 'w')]
 		);
 	}
+	
+	public function tearDown()
+	{
+		unlink($this->archive);
+	}
 
 	/**
 	 * @dataProvider providesNameAndData
@@ -67,7 +72,7 @@ class Streamer extends PHPUnit_Framework_TestCase
 	{
 		return [
 			['foo.bar', '1234567890'],
-//			['foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234.txt', 'abcdefgh']
+			['foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234foobar1234.txt', 'abcdefghij']
 		];
 	}
 
@@ -178,6 +183,9 @@ class Streamer extends PHPUnit_Framework_TestCase
 	{
 		$arc = new Archive_Tar($this->archive);
 		$list = $arc->listContent();
+		if (!is_array($list)){
+			$list = [];
+		}
 		$elem = array_filter($list, function ($element) use ($folderName) {
 			return $element['filename'] == $folderName;
 		});
