@@ -69,7 +69,7 @@ class TarHeader {
 			['a8', decoct(str_pad($this->uid, 7, '0', STR_PAD_LEFT))],
 			['a8', decoct(str_pad($this->gid, 7, '0', STR_PAD_LEFT))],
 			['a12', str_pad(decoct($this->size), 11, '0', STR_PAD_LEFT)],
-			['a12', $this->mtime],
+			['a12', str_pad(decoct($this->mtime), 11, '0', STR_PAD_LEFT)],
 			// We calculate checksum later
 			['a8', ''],
 			['a1', $this->typeflag],
