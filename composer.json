@@ -11,9 +11,14 @@
   "homepage": "https://github.com/owncloud/TarStreamer",
   "license": "MIT",
   "require": {
-    "php": ">=5.3.8"
+    "php": ">=7.1"
   },
-  "autoload": {
+  "config" : {
+    "platform": {
+        "php": "7.1"
+    }
+},
+"autoload": {
     "psr-4": {
       "ownCloud\\TarStreamer\\": "src/"
     }
@@ -25,7 +30,7 @@
     ]
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8",
+    "phpunit/phpunit": "^7.5",
     "pear/pear-core-minimal": "v1.10.0alpha2",
     "pear/archive_tar": "~1.4"
   }
