@@ -4,9 +4,9 @@ namespace ownCloud\TarStreamer\Tests;
 
 use Archive_Tar;
 use ownCloud\TarStreamer\TarStreamer;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class Streamer extends PHPUnit_Framework_TestCase
+class Streamer extends TestCase
 {
 	/** @var string */
 	private $archive;
